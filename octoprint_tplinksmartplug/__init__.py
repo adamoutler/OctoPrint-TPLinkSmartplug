@@ -21,6 +21,7 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 		self._tplinksmartplug_logger = logging.getLogger("octoprint.plugins.tplinksmartplug.debug")
 							
 	##~~ StartupPlugin mixin
+	
 	def on_startup(self, host, port):
 		# setup customized logger
 		from octoprint.logging.handlers import CleaningTimedRotatingFileHandler
@@ -34,13 +35,13 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 	
 	def on_after_startup(self):
 		self._logger.info("TPLinkSmartplug loaded!")
-
+	
 	##~~ SettingsPlugin mixin
-
+	
 	def get_settings_defaults(self):
 		return dict(
 			debug_logging = False,
-			arrSmartplugs = [{'ip':'','displayWarning':True,'gcodeEnabled':False,'gcodeOnDelay':0,'gcodeOffDelay':0,'autoConnect':True,'autoConnectDelay':10.0,'autoDisconnect':True,'autoDisconnectDelay':0,'sysCmdOn':False,'sysRunCmdOn':'','sysCmdOnDelay':0,'sysCmdOff':False,'sysRunCmdOff':'','sysCmdOffDelay':0,'currentState':'unknown','btnColor':'#808080'}]
+			arrSmartplugs = [{'ip':'','displayWarning':True,'warnPrinting':False,'gcodeEnabled':False,'gcodeOnDelay':0,'gcodeOffDelay':0,'autoConnect':True,'autoConnectDelay':10.0,'autoDisconnect':True,'autoDisconnectDelay':0,'sysCmdOn':False,'sysRunCmdOn':'','sysCmdOnDelay':0,'sysCmdOff':False,'sysRunCmdOff':'','sysCmdOffDelay':0,'currentState':'unknown','btnColor':'#808080'}],
 		)
 		
 	def on_settings_save(self, data):	
@@ -54,7 +55,16 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 				self._tplinksmartplug_logger.setLevel(logging.DEBUG)
 			else:
 				self._tplinksmartplug_logger.setLevel(logging.INFO)
-
+				
+	def get_settings_version(self):
+		return 2
+		
+	def on_settings_migrate(self, target, current=None):
+		if current is None or current < self.get_settings_version():
+			# Reset plug settings to defaults.
+			self._logger.debug("Resetting arrSmartplugs for tplinksmartplug settings.")
+			self._settings.set(['arrSmartplugs'], self.get_settings_defaults().arrSmartplugs)
+		
 	##~~ AssetPlugin mixin
 
 	def get_assets(self):

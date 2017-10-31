@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.6.0] - 2017-10-08
+## [0.7.1] - 2017-10-22
+### Fixed
+- Issue with software upgrade where viewmodel binding was breaking.
+
+## [0.7.0] - 2017-10-22
+### Added
+- Warning while printing, disable in settings (right checkbox in Warn column).
+- Settings versioning
+- Clear smartplug array on upgrade to account for data structure changes (crude hack until future data structure improvements).
+
+### Changed
+- Settings dialog for additional warning setting.
+- Toggle off function changed to escape special characters required for jquery selectors.
+
+### Fixed
+- Toggle off issue when using ip address and warning prompt due to jquery selectors.
+
+## [0.6.0] - unreleased
 ### Added
 - Support for multiple plugs incorporated.
 
@@ -63,7 +80,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial release.
 
-[0.6.0]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.6.0
+[0.7.1]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.7.1
+[0.7.0]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.7.0
 [0.5.0]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.5.0
 [0.4.0]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.4.0
 [0.3.1]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.3.1
