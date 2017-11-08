@@ -9,6 +9,7 @@ import time
 import logging
 import os
 import re
+from struct import pack
 
 class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
                             octoprint.plugin.AssetPlugin,
@@ -135,7 +136,7 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 	
 	def encrypt(self, string):
 		key = 171
-		result = "\0\0\0"+chr(len(string))
+		result = pack('>I', len(string))
 		for i in string: 
 			a = key ^ ord(i)
 			key = a
