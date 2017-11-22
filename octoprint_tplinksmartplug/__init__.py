@@ -42,6 +42,7 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 	def get_settings_defaults(self):
 		return dict(
 			debug_logging = False,
+			classicencrypt = False,
 			arrSmartplugs = [{'ip':'','displayWarning':True,'warnPrinting':False,'gcodeEnabled':False,'gcodeOnDelay':0,'gcodeOffDelay':0,'autoConnect':True,'autoConnectDelay':10.0,'autoDisconnect':True,'autoDisconnectDelay':0,'sysCmdOn':False,'sysRunCmdOn':'','sysCmdOnDelay':0,'sysCmdOff':False,'sysRunCmdOff':'','sysCmdOffDelay':0,'currentState':'unknown','btnColor':'#808080'}],
 		)
 		
@@ -142,6 +143,15 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 			key = a
 			result += chr(a)
 		return result
+	
+	def classicencrypt(self, string):
+		key = 171
+		result = "\0\0\0"+chr(len(string))
+		for i in string: 
+			a = key ^ ord(i)
+			key = a
+			result += chr(a)
+		return result
 
 	def decrypt(self, string):
 		key = 171 
@@ -184,7 +194,11 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 		try:
 			sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 			sock_tcp.connect((ip, 9999))
-			sock_tcp.send(self.encrypt(commands[cmd]))
+			if self._settings.get_boolean(["classicencrypt"]):
+				sock_tcp.send(self.classicencrypt(commands[cmd]))
+			else:
+				sock_tcp.send(self.encrypt(commands[cmd]))
+			
 			data = sock_tcp.recv(2048)
 			sock_tcp.close()
 			
