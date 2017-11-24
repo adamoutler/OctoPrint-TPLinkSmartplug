@@ -68,6 +68,11 @@ $(function() {
 			plug = ko.utils.arrayFirst(self.settings.settings.plugins.tplinksmartplug.arrSmartplugs(),function(item){
 				return item.ip() === data.ip;
 				}) || {'ip':data.ip,'currentState':'unknown','btnColor':'#808080'};
+            
+            if(self.settings.settings.plugins.tplinksmartplug.debug_logging()){
+			    console.log('msg received:'+JSON.stringify(data));
+                console.log('plug data:'+ko.toJSON(plug));
+			}
 			
 			if (data.gcodeon && plug.gcodeEnabled()) {
 				setTimeout(function(){self.turnOn(plug)},plug.gcodeOnDelay()*1000);
@@ -96,8 +101,8 @@ $(function() {
 							type: 'error',
 							hide: true
 							});
-				self.settings.saveData();
 				}
+				self.settings.saveData();
 			}
         };
 		
