@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2017-11-25
+### Added
+- Classic encryption option.  Try this if you're having problems with the icon not changing colors correctly.
+
+### Fixed
+- Bug in settings save logic on state change/detection.
+
 ## [0.7.2] - 2017-10-24
 ### Fixed
 - Thanks to Gina, really fix the issue with software upgrade where viewmodel binding was breaking.
@@ -84,6 +91,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial release.
 
+[0.8.0]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.8.0
 [0.7.2]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.7.2
 [0.7.1]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.7.1
 [0.7.0]: https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/tree/0.7.0
