@@ -143,7 +143,7 @@ class tplinksmartplugPlugin(octoprint.plugin.SettingsPlugin,
 	
 	def plug_search(self, list, key, value): 
 		for item in list: 
-			if item[key] == value: 
+			if item[key].upper() == value.upper(): 
 				return item
 	
 	def encrypt(self, string):
